@@ -1,0 +1,10 @@
+{
+    "domain": "wattwallet",
+    "name": "Wattwallet",
+    "version": "1.0.0",
+    "documentation": "https://wattwallet.de/",
+    "requirements": ["requests>=2.28.0"],
+    "codeowners": ["@wattwalet"],
+    "config_flow": true,
+    "iot_class": "cloud_polling"
+}

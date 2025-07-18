@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cython debug symbols
+cython_debug/
+
+# Distribution files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environment
+.env/
+.venv/
+env/
+venv/
+
+# VSCode & IDE Settings
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Test/coverage outputs
+.coverage
+coverage.xml
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# HACS artifacts
+.hacs/
