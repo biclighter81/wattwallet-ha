@@ -36,3 +36,4 @@ coverage.xml
 
 # HACS artifacts
 .hacs/
+debug-config

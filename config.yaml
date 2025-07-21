@@ -1,0 +1,522 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# The "homeassistant:" key is no longer needed for customization here
+# http, frontend, automation, script, scene includes remain as they are
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 127.0.0.0/8
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  customize:
+    sensor.building_a_pv_generation_energy:
+      device_class: energy
+    sensor.building_a_grid_consumption_energy:
+      device_class: energy
+    sensor.building_a_floor_1_left_energy:
+      device_class: energy
+    sensor.building_a_floor_1_right_energy:
+      device_class: energy
+
+    sensor.building_b_pv_generation_energy:
+      device_class: energy
+    sensor.building_b_grid_consumption_energy:
+      device_class: energy
+    sensor.building_b_floor_1_left_energy:
+      device_class: energy
+    sensor.building_b_floor_1_right_energy:
+      device_class: energy
+    sensor.building_b_floor_2_left_energy:
+      device_class: energy
+    sensor.building_b_floor_2_right_energy:
+      device_class: energy
+
+    sensor.building_c_pv_generation_energy:
+      device_class: energy
+    sensor.building_c_grid_consumption_energy:
+      device_class: energy
+    sensor.building_c_floor_1_left_energy:
+      device_class: energy
+    sensor.building_c_floor_1_right_energy:
+      device_class: energy
+    sensor.building_c_floor_2_left_energy:
+      device_class: energy
+    sensor.building_c_floor_2_right_energy:
+      device_class: energy
+    sensor.building_c_floor_3_left_energy:
+      device_class: energy
+    sensor.building_c_floor_3_right_energy:
+      device_class: energy
+
+    sensor.building_d_pv_generation_energy:
+      device_class: energy
+    sensor.building_d_grid_consumption_energy:
+      device_class: energy
+    sensor.building_d_floor_1_left_energy:
+      device_class: energy
+    sensor.building_d_floor_1_right_energy:
+      device_class: energy
+    sensor.building_d_floor_2_left_energy:
+      device_class: energy
+    sensor.building_d_floor_2_right_energy:
+      device_class: energy
+    sensor.building_d_floor_3_left_energy:
+      device_class: energy
+    sensor.building_d_floor_3_right_energy:
+      device_class: energy
+    sensor.building_d_floor_4_left_energy:
+      device_class: energy
+    sensor.building_d_floor_4_right_energy:
+      device_class: energy
+    sensor.building_d_floor_5_left_energy:
+      device_class: energy
+    sensor.building_d_floor_5_right_energy:
+      device_class: energy
+
+sensor:
+  # ========== INTEGRATION (ENERGY) SENSORS ==========
+
+  # BUILDING A
+  - platform: integration
+    name: "Building A - PV Generation Energy"
+    source: sensor.building_a_pv_generation
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building A - Grid Consumption Energy"
+    source: sensor.building_a_grid_meter
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building A - Floor 1 - Left Energy"
+    source: sensor.building_a_floor1_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building A - Floor 1 - Right Energy"
+    source: sensor.building_a_floor1_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  # BUILDING B
+  - platform: integration
+    name: "Building B - PV Generation Energy"
+    source: sensor.building_b_pv_generation
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building B - Grid Consumption Energy"
+    source: sensor.building_b_grid_meter
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building B - Floor 1 - Left Energy"
+    source: sensor.building_b_floor1_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building B - Floor 1 - Right Energy"
+    source: sensor.building_b_floor1_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building B - Floor 2 - Left Energy"
+    source: sensor.building_b_floor2_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building B - Floor 2 - Right Energy"
+    source: sensor.building_b_floor2_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  # BUILDING C
+  - platform: integration
+    name: "Building C - PV Generation Energy"
+    source: sensor.building_c_pv_generation
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Grid Consumption Energy"
+    source: sensor.building_c_grid_meter
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Floor 1 - Left Energy"
+    source: sensor.building_c_floor1_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Floor 1 - Right Energy"
+    source: sensor.building_c_floor1_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Floor 2 - Left Energy"
+    source: sensor.building_c_floor2_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Floor 2 - Right Energy"
+    source: sensor.building_c_floor2_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Floor 3 - Left Energy"
+    source: sensor.building_c_floor3_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Floor 3 - Right Energy"
+    source: sensor.building_c_floor3_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  # BUILDING D
+  - platform: integration
+    name: "Building D - PV Generation Energy"
+    source: sensor.building_d_pv_generation
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Grid Consumption Energy"
+    source: sensor.building_d_grid_meter
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 1 - Left Energy"
+    source: sensor.building_d_floor1_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 1 - Right Energy"
+    source: sensor.building_d_floor1_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 2 - Left Energy"
+    source: sensor.building_d_floor2_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 2 - Right Energy"
+    source: sensor.building_d_floor2_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 3 - Left Energy"
+    source: sensor.building_d_floor3_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 3 - Right Energy"
+    source: sensor.building_d_floor3_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 4 - Left Energy"
+    source: sensor.building_d_floor4_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 4 - Right Energy"
+    source: sensor.building_d_floor4_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 5 - Left Energy"
+    source: sensor.building_d_floor5_left
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Floor 5 - Right Energy"
+    source: sensor.building_d_floor5_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  # ========== SIMULATION PARAMETERS ==========
+  #- platform: template
+  #  sensors:
+  #    simulation_update:
+  #      friendly_name: "Simulation Update Trigger"
+  #      value_template: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+  # ========== BUILDING A ==========
+  - platform: template
+    sensors:
+      building_a_pv_generation:
+        friendly_name: "Building A PV Generation"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% if is_state('sun.sun', 'above_horizon') %}
+            {{ 1.8 + (range(0, 30)|random / 100) }}
+          {% else %}
+            0
+          {% endif %}
+
+      building_a_floor1_left:
+        friendly_name: "Building A - Floor 1 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.0 + (range(0, 30)|random / 100) }}"
+
+      building_a_floor1_right:
+        friendly_name: "Building A - Floor 1 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 1.9 + (range(0, 30)|random / 100) }}"
+
+      building_a_grid_meter:
+        friendly_name: "Building A Grid Consumption"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set total = states('sensor.building_a_floor1_left')|float +
+                          states('sensor.building_a_floor1_right')|float -
+                          states('sensor.building_a_pv_generation')|float %}
+          {{ total if total > 0 else 0 }}
+
+  # ========== BUILDING B ==========
+  - platform: template
+    sensors:
+      building_b_pv_generation:
+        friendly_name: "Building B PV Generation"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% if is_state('sun.sun', 'above_horizon') %}
+            {{ 4.5 + (range(0, 50)|random / 100) }}
+          {% else %}
+            0
+          {% endif %}
+
+      building_b_floor1_left:
+        friendly_name: "Building B - Floor 1 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_b_floor1_right:
+        friendly_name: "Building B - Floor 1 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.0 + (range(0, 30)|random / 100) }}"
+
+      building_b_floor2_left:
+        friendly_name: "Building B - Floor 2 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.2 + (range(0, 30)|random / 100) }}"
+
+      building_b_floor2_right:
+        friendly_name: "Building B - Floor 2 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.3 + (range(0, 30)|random / 100) }}"
+
+      building_b_grid_meter:
+        friendly_name: "Building B Grid Consumption"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set total = states('sensor.building_b_floor1_left')|float +
+                          states('sensor.building_b_floor1_right')|float +
+                          states('sensor.building_b_floor2_left')|float +
+                          states('sensor.building_b_floor2_right')|float -
+                          states('sensor.building_b_pv_generation')|float %}
+          {{ total if total > 0 else 0 }}
+
+  # ========== BUILDING C ==========
+  - platform: template
+    sensors:
+      building_c_pv_generation:
+        friendly_name: "Building C PV Generation"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% if is_state('sun.sun', 'above_horizon') %}
+            {{ 6.5 + (range(0, 50)|random / 100) }}
+          {% else %}
+            0
+          {% endif %}
+
+      building_c_floor1_left:
+        friendly_name: "Building C - Floor 1 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.0 + (range(0, 30)|random / 100) }}"
+
+      building_c_floor1_right:
+        friendly_name: "Building C - Floor 1 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_c_floor2_left:
+        friendly_name: "Building C - Floor 2 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.0 + (range(0, 30)|random / 100) }}"
+
+      building_c_floor2_right:
+        friendly_name: "Building C - Floor 2 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_c_floor3_left:
+        friendly_name: "Building C - Floor 3 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.2 + (range(0, 30)|random / 100) }}"
+
+      building_c_floor3_right:
+        friendly_name: "Building C - Floor 3 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.3 + (range(0, 30)|random / 100) }}"
+
+      building_c_grid_meter:
+        friendly_name: "Building C Grid Consumption"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set total = states('sensor.building_c_floor1_left')|float +
+                          states('sensor.building_c_floor1_right')|float +
+                          states('sensor.building_c_floor2_left')|float +
+                          states('sensor.building_c_floor2_right')|float +
+                          states('sensor.building_c_floor3_left')|float +
+                          states('sensor.building_c_floor3_right')|float -
+                          states('sensor.building_c_pv_generation')|float %}
+          {{ total if total > 0 else 0 }}
+
+  # ========== BUILDING D ==========
+  - platform: template
+    sensors:
+      building_d_pv_generation:
+        friendly_name: "Building D PV Generation"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% if is_state('sun.sun', 'above_horizon') %}
+            {{ 9.5 + (range(0, 50)|random / 100) }}
+          {% else %}
+            0
+          {% endif %}
+
+      building_d_floor1_left:
+        friendly_name: "Building D - Floor 1 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor1_right:
+        friendly_name: "Building D - Floor 1 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor2_left:
+        friendly_name: "Building D - Floor 2 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor2_right:
+        friendly_name: "Building D - Floor 2 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor3_left:
+        friendly_name: "Building D - Floor 3 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor3_right:
+        friendly_name: "Building D - Floor 3 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor4_left:
+        friendly_name: "Building D - Floor 4 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor4_right:
+        friendly_name: "Building D - Floor 4 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor5_left:
+        friendly_name: "Building D - Floor 5 - Left"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_floor5_right:
+        friendly_name: "Building D - Floor 5 - Right"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
+
+      building_d_grid_meter:
+        friendly_name: "Building D Grid Consumption"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set total =
+            states('sensor.building_d_floor1_left')|float +
+            states('sensor.building_d_floor1_right')|float +
+            states('sensor.building_d_floor2_left')|float +
+            states('sensor.building_d_floor2_right')|float +
+            states('sensor.building_d_floor3_left')|float +
+            states('sensor.building_d_floor3_right')|float +
+            states('sensor.building_d_floor4_left')|float +
+            states('sensor.building_d_floor4_right')|float +
+            states('sensor.building_d_floor5_left')|float +
+            states('sensor.building_d_floor5_right')|float -
+            states('sensor.building_d_pv_generation')|float %}
+          {{ total if total > 0 else 0 }}
