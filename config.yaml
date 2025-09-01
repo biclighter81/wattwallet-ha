@@ -28,6 +28,10 @@ homeassistant:
       device_class: energy
     sensor.building_a_floor_1_right_energy:
       device_class: energy
+    sensor.building_a_grid_delivery_energy:
+      device_class: energy
+    sensor.building_a_common_area_energy:
+      device_class: energy
 
     sensor.building_b_pv_generation_energy:
       device_class: energy
@@ -40,6 +44,10 @@ homeassistant:
     sensor.building_b_floor_2_left_energy:
       device_class: energy
     sensor.building_b_floor_2_right_energy:
+      device_class: energy
+    sensor.building_b_grid_delivery_energy:
+      device_class: energy
+    sensor.building_b_common_area_energy:
       device_class: energy
 
     sensor.building_c_pv_generation_energy:
@@ -57,6 +65,10 @@ homeassistant:
     sensor.building_c_floor_3_left_energy:
       device_class: energy
     sensor.building_c_floor_3_right_energy:
+      device_class: energy
+    sensor.building_c_grid_delivery_energy:
+      device_class: energy
+    sensor.building_c_common_area_energy:
       device_class: energy
 
     sensor.building_d_pv_generation_energy:
@@ -82,6 +94,10 @@ homeassistant:
     sensor.building_d_floor_5_left_energy:
       device_class: energy
     sensor.building_d_floor_5_right_energy:
+      device_class: energy
+    sensor.building_d_grid_delivery_energy:
+      device_class: energy
+    sensor.building_d_common_area_energy:
       device_class: energy
 
 sensor:
@@ -112,6 +128,20 @@ sensor:
   - platform: integration
     name: "Building A - Floor 1 - Right Energy"
     source: sensor.building_a_floor1_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building A - Grid Delivery Energy"
+    source: sensor.building_a_grid_delivery
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building A - Common Area Energy"
+    source: sensor.building_a_common_area
     round: 2
     method: trapezoidal
     unit_time: h
@@ -155,6 +185,20 @@ sensor:
   - platform: integration
     name: "Building B - Floor 2 - Right Energy"
     source: sensor.building_b_floor2_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building B - Grid Delivery Energy"
+    source: sensor.building_b_grid_delivery
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building B - Common Area Energy"
+    source: sensor.building_b_common_area
     round: 2
     method: trapezoidal
     unit_time: h
@@ -212,6 +256,20 @@ sensor:
   - platform: integration
     name: "Building C - Floor 3 - Right Energy"
     source: sensor.building_c_floor3_right
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Grid Delivery Energy"
+    source: sensor.building_c_grid_delivery
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building C - Common Area Energy"
+    source: sensor.building_c_common_area
     round: 2
     method: trapezoidal
     unit_time: h
@@ -301,6 +359,20 @@ sensor:
     method: trapezoidal
     unit_time: h
 
+  - platform: integration
+    name: "Building D - Grid Delivery Energy"
+    source: sensor.building_d_grid_delivery
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
+  - platform: integration
+    name: "Building D - Common Area Energy"
+    source: sensor.building_d_common_area
+    round: 2
+    method: trapezoidal
+    unit_time: h
+
   # ========== SIMULATION PARAMETERS ==========
   #- platform: template
   #  sensors:
@@ -331,13 +403,31 @@ sensor:
         unit_of_measurement: "kW"
         value_template: "{{ 1.9 + (range(0, 30)|random / 100) }}"
 
+      building_a_common_area:
+        friendly_name: "Building A - Common Area"
+        unit_of_measurement: "kW"
+        value_template: "{{ 0.8 + (range(0, 20)|random / 100) }}"
+
+      building_a_grid_delivery:
+        friendly_name: "Building A Grid Delivery"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set pv_generation = states('sensor.building_a_pv_generation')|float %}
+          {% set total_consumption = states('sensor.building_a_floor1_left')|float +
+                                      states('sensor.building_a_floor1_right')|float +
+                                      states('sensor.building_a_common_area')|float %}
+          {% set surplus = pv_generation - total_consumption %}
+          {{ (surplus * 0.2) if surplus > 0 else 0 }}
+
       building_a_grid_meter:
         friendly_name: "Building A Grid Consumption"
         unit_of_measurement: "kW"
         value_template: >
           {% set total = states('sensor.building_a_floor1_left')|float +
-                          states('sensor.building_a_floor1_right')|float -
-                          states('sensor.building_a_pv_generation')|float %}
+                          states('sensor.building_a_floor1_right')|float +
+                          states('sensor.building_a_common_area')|float -
+                          states('sensor.building_a_pv_generation')|float +
+                          states('sensor.building_a_grid_delivery')|float %}
           {{ total if total > 0 else 0 }}
 
   # ========== BUILDING B ==========
@@ -373,6 +463,24 @@ sensor:
         unit_of_measurement: "kW"
         value_template: "{{ 2.3 + (range(0, 30)|random / 100) }}"
 
+      building_b_common_area:
+        friendly_name: "Building B - Common Area"
+        unit_of_measurement: "kW"
+        value_template: "{{ 1.2 + (range(0, 25)|random / 100) }}"
+
+      building_b_grid_delivery:
+        friendly_name: "Building B Grid Delivery"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set pv_generation = states('sensor.building_b_pv_generation')|float %}
+          {% set total_consumption = states('sensor.building_b_floor1_left')|float +
+                                      states('sensor.building_b_floor1_right')|float +
+                                      states('sensor.building_b_floor2_left')|float +
+                                      states('sensor.building_b_floor2_right')|float +
+                                      states('sensor.building_b_common_area')|float %}
+          {% set surplus = pv_generation - total_consumption %}
+          {{ (surplus * 0.2) if surplus > 0 else 0 }}
+
       building_b_grid_meter:
         friendly_name: "Building B Grid Consumption"
         unit_of_measurement: "kW"
@@ -380,8 +488,10 @@ sensor:
           {% set total = states('sensor.building_b_floor1_left')|float +
                           states('sensor.building_b_floor1_right')|float +
                           states('sensor.building_b_floor2_left')|float +
-                          states('sensor.building_b_floor2_right')|float -
-                          states('sensor.building_b_pv_generation')|float %}
+                          states('sensor.building_b_floor2_right')|float +
+                          states('sensor.building_b_common_area')|float -
+                          states('sensor.building_b_pv_generation')|float +
+                          states('sensor.building_b_grid_delivery')|float %}
           {{ total if total > 0 else 0 }}
 
   # ========== BUILDING C ==========
@@ -427,6 +537,26 @@ sensor:
         unit_of_measurement: "kW"
         value_template: "{{ 2.3 + (range(0, 30)|random / 100) }}"
 
+      building_c_common_area:
+        friendly_name: "Building C - Common Area"
+        unit_of_measurement: "kW"
+        value_template: "{{ 1.5 + (range(0, 30)|random / 100) }}"
+
+      building_c_grid_delivery:
+        friendly_name: "Building C Grid Delivery"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set pv_generation = states('sensor.building_c_pv_generation')|float %}
+          {% set total_consumption = states('sensor.building_c_floor1_left')|float +
+                                      states('sensor.building_c_floor1_right')|float +
+                                      states('sensor.building_c_floor2_left')|float +
+                                      states('sensor.building_c_floor2_right')|float +
+                                      states('sensor.building_c_floor3_left')|float +
+                                      states('sensor.building_c_floor3_right')|float +
+                                      states('sensor.building_c_common_area')|float %}
+          {% set surplus = pv_generation - total_consumption %}
+          {{ (surplus * 0.2) if surplus > 0 else 0 }}
+
       building_c_grid_meter:
         friendly_name: "Building C Grid Consumption"
         unit_of_measurement: "kW"
@@ -436,8 +566,10 @@ sensor:
                           states('sensor.building_c_floor2_left')|float +
                           states('sensor.building_c_floor2_right')|float +
                           states('sensor.building_c_floor3_left')|float +
-                          states('sensor.building_c_floor3_right')|float -
-                          states('sensor.building_c_pv_generation')|float %}
+                          states('sensor.building_c_floor3_right')|float +
+                          states('sensor.building_c_common_area')|float -
+                          states('sensor.building_c_pv_generation')|float +
+                          states('sensor.building_c_grid_delivery')|float %}
           {{ total if total > 0 else 0 }}
 
   # ========== BUILDING D ==========
@@ -503,6 +635,31 @@ sensor:
         unit_of_measurement: "kW"
         value_template: "{{ 2.1 + (range(0, 30)|random / 100) }}"
 
+      building_d_common_area:
+        friendly_name: "Building D - Common Area"
+        unit_of_measurement: "kW"
+        value_template: "{{ 2.0 + (range(0, 40)|random / 100) }}"
+
+      building_d_grid_delivery:
+        friendly_name: "Building D Grid Delivery"
+        unit_of_measurement: "kW"
+        value_template: >
+          {% set pv_generation = states('sensor.building_d_pv_generation')|float %}
+          {% set total_consumption = 
+            states('sensor.building_d_floor1_left')|float +
+            states('sensor.building_d_floor1_right')|float +
+            states('sensor.building_d_floor2_left')|float +
+            states('sensor.building_d_floor2_right')|float +
+            states('sensor.building_d_floor3_left')|float +
+            states('sensor.building_d_floor3_right')|float +
+            states('sensor.building_d_floor4_left')|float +
+            states('sensor.building_d_floor4_right')|float +
+            states('sensor.building_d_floor5_left')|float +
+            states('sensor.building_d_floor5_right')|float +
+            states('sensor.building_d_common_area')|float %}
+          {% set surplus = pv_generation - total_consumption %}
+          {{ (surplus * 0.2) if surplus > 0 else 0 }}
+
       building_d_grid_meter:
         friendly_name: "Building D Grid Consumption"
         unit_of_measurement: "kW"
@@ -517,6 +674,8 @@ sensor:
             states('sensor.building_d_floor4_left')|float +
             states('sensor.building_d_floor4_right')|float +
             states('sensor.building_d_floor5_left')|float +
-            states('sensor.building_d_floor5_right')|float -
-            states('sensor.building_d_pv_generation')|float %}
+            states('sensor.building_d_floor5_right')|float +
+            states('sensor.building_d_common_area')|float -
+            states('sensor.building_d_pv_generation')|float +
+            states('sensor.building_d_grid_delivery')|float %}
           {{ total if total > 0 else 0 }}

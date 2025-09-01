@@ -10,12 +10,16 @@
           - sensor.building_a_pv_generation
           - sensor.building_a_floor1_left
           - sensor.building_a_floor1_right
+          - sensor.building_a_common_area
+          - sensor.building_a_grid_delivery
           - sensor.building_a_grid_meter
           - sensor.building_b_pv_generation
           - sensor.building_b_floor1_left
           - sensor.building_b_floor1_right
           - sensor.building_b_floor2_left
           - sensor.building_b_floor2_right
+          - sensor.building_b_common_area
+          - sensor.building_b_grid_delivery
           - sensor.building_b_grid_meter
           - sensor.building_c_pv_generation
           - sensor.building_c_floor1_left
@@ -24,6 +28,8 @@
           - sensor.building_c_floor2_right
           - sensor.building_c_floor3_left
           - sensor.building_c_floor3_right
+          - sensor.building_c_common_area
+          - sensor.building_c_grid_delivery
           - sensor.building_c_grid_meter
           - sensor.building_d_pv_generation
           - sensor.building_d_floor1_left
@@ -36,4 +42,6 @@
           - sensor.building_d_floor4_right
           - sensor.building_d_floor5_left
           - sensor.building_d_floor5_right
+          - sensor.building_d_common_area
+          - sensor.building_d_grid_delivery
           - sensor.building_d_grid_meter
