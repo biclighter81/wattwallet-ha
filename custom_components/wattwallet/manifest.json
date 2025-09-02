@@ -1,6 +1,6 @@
 {
     "domain": "wattwallet",
-    "name": "Wattwallet",
+    "name": "wattwallet",
     "codeowners": ["@wattwalet"],
     "config_flow": true,
     "documentation": "https://wattwallet.de/",

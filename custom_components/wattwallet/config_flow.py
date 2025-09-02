@@ -1,3 +1,5 @@
+"""Config flow for wattwallet integration."""
+
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -6,9 +8,12 @@ from homeassistant.helpers import selector
 
 DOMAIN = "wattwallet"
 
+
 class WattwalletConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for Wattwallet."""
 
     async def async_step_user(self, user_input=None):
+        """Handle the initial step."""
         errors = {}
 
         if user_input:
@@ -35,35 +40,40 @@ class WattwalletConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema({
-                vol.Required("name", default="Wattwallet"): str,
-                vol.Required("stromzaehler"): selector.EntitySelector(
-                    selector.EntitySelectorConfig(
-                        multiple=True,
-                        filter={
-                            "domain": "sensor",
-                            "device_class": "energy"
-                        }
-                    )
-                ),
-                vol.Required("interval", default=300): int,
-                vol.Required("api_token"): str,
-                vol.Required("target_url"): str,
-            }),
+            data_schema=vol.Schema(
+                {
+                    vol.Required("name", default="wattwallet"): str,
+                    vol.Required("stromzaehler"): selector.EntitySelector(
+                        selector.EntitySelectorConfig(
+                            multiple=True,
+                            filter={"domain": "sensor", "device_class": "energy"},
+                        )
+                    ),
+                    vol.Required("interval", default=300): int,
+                    vol.Required("api_token"): str,
+                    vol.Required("target_url"): str,
+                }
+            ),
             errors=errors,
         )
 
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
+        """Get the options flow for this handler."""
         return WattwalletOptionsFlowHandler(config_entry)
 
+
 class WattwalletOptionsFlowHandler(config_entries.OptionsFlow):
+    """Handle Wattwallet options."""
 
     def __init__(self, config_entry):
-        self.config_entry = config_entry
+        """Initialize options flow."""
+        super().__init__()
+        self._config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
+        """Handle options flow."""
         errors = {}
 
         if user_input is not None:
@@ -95,19 +105,22 @@ class WattwalletOptionsFlowHandler(config_entries.OptionsFlow):
 
         return self.async_show_form(
             step_id="init",
-            data_schema=vol.Schema({
-                vol.Required("stromzaehler", default=get_option("stromzaehler", [])): selector.EntitySelector(
-                    selector.EntitySelectorConfig(
-                        multiple=True,
-                        filter={
-                            "domain": "sensor",
-                            "device_class": "energy"
-                        }
-                    )
-                ),
-                vol.Required("interval", default=get_option("interval", 300)): int,
-                vol.Required("api_token", default=get_option("api_token", "")): str,
-                vol.Required("target_url", default=get_option("target_url", "")): str,
-            }),
+            data_schema=vol.Schema(
+                {
+                    vol.Required(
+                        "stromzaehler", default=get_option("stromzaehler", [])
+                    ): selector.EntitySelector(
+                        selector.EntitySelectorConfig(
+                            multiple=True,
+                            filter={"domain": "sensor", "device_class": "energy"},
+                        )
+                    ),
+                    vol.Required("interval", default=get_option("interval", 300)): int,
+                    vol.Required("api_token", default=get_option("api_token", "")): str,
+                    vol.Required(
+                        "target_url", default=get_option("target_url", "")
+                    ): str,
+                }
+            ),
             errors=errors,
         )
