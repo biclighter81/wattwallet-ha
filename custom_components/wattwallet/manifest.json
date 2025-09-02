@@ -1,10 +1,11 @@
 {
     "domain": "wattwallet",
     "name": "wattwallet",
-    "version": "1.0.0",
-    "documentation": "https://wattwallet.de/",
-    "requirements": ["requests>=2.28.0"],
-    "codeowners": ["@wattwallet"],
+    "codeowners": ["@wattwalet"],
     "config_flow": true,
-    "iot_class": "cloud_polling"
+    "documentation": "https://wattwallet.de/",
+    "iot_class": "cloud_polling",
+    "issue_tracker": "https://github.com/biclighter81/wattwallet-ha/issues",
+    "requirements": ["requests>=2.28.0"],
+    "version": "1.0.1"
 }
