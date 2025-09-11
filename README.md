@@ -261,9 +261,6 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe [LICENSE](LICENSE) für Details
 Diese Integration ist besonders nützlich für:
 
 - **Mehrfamilienhäuser**: Überwachung des Energieverbrauchs einzelner Wohnungen
-- **Gewerbliche Gebäude**: Tracking von Energiekosten verschiedener Mieter
-- **Smart Buildings**: Integration in größere Energiemanagementsysteme
-- **Energieberatung**: Datensammlung für Effizienzanalysen
 
 ---
 
