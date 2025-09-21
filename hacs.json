@@ -1,4 +1,6 @@
 {
   "name": "wattwallet Integration",
-  "content_in_root": false
+  "content_in_root": false,
+  "country": "DE",
+  "homeassistant": "2023.1.0"
 }
