@@ -19,7 +19,6 @@ Diese Integration sammelt Energieverbrauchsdaten von konfigurierten Sensoren in 
 - **Anpassbare Intervalle**: Konfigurierbare Upload-Intervalle (Standard: 5 Minuten)
 - **Status-Monitoring**: HTTP-Status-Sensor zur Überwachung der Übertragungsqualität
 - **Sichere Authentifizierung**: Bearer Token-basierte API-Authentifizierung
-- **Fehlerbehandlung**: Robuste Fehlerbehandlung mit detailliertem Logging
 
 ## 🛠 Voraussetzungen
 
@@ -78,26 +77,6 @@ Diese Integration sammelt Energieverbrauchsdaten von konfigurierten Sensoren in 
 | **API Token** | Text | Wattwallet API-Authentifizierungstoken | ✅ | - |
 | **Target URL** | Text | Wattwallet API-Endpunkt-URL | ✅ | - |
 
-### Sensor-Anforderungen
-
-Die ausgewählten Energiesensoren müssen folgende Eigenschaften haben:
-
-```yaml
-sensor:
-  - platform: integration
-    name: "Mein Energiezähler"
-    source: sensor.power_meter
-    unit_time: h
-    round: 2
-    method: trapezoidal
-```
-
-**Wichtige Attribute:**
-
-- `state_class`: `total` oder `total_increasing`
-- `unit_of_measurement`: `Wh` oder `kWh`  
-- `device_class`: `energy`
-
 ### Beispielkonfiguration
 
 ```yaml
@@ -124,27 +103,6 @@ homeassistant:
   customize:
     sensor.building_a_energy:
       device_class: energy
-```
-
-## 📊 Datenformat
-
-Die Integration sendet Daten im folgenden JSON-Format an die Wattwallet API:
-
-```json
-{
-  "data": [
-    {
-      "entity_id": "sensor.building_a_energy",
-      "state": "1234.56",
-      "attributes": {
-        "unit_of_measurement": "kWh",
-        "device_class": "energy",
-        "state_class": "total_increasing",
-        "friendly_name": "Building A Energy"
-      }
-    }
-  ]
-}
 ```
 
 ## 🔍 Monitoring & Debugging
@@ -255,13 +213,5 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe [LICENSE](LICENSE) für Details
 - [Wattwallet Website](https://wattwallet.de/)
 - [Home Assistant Developer Docs](https://developers.home-assistant.io/)
 - [HACS Documentation](https://hacs.xyz/docs/basic/getting_started)
-
-## 💡 Beispiel-Anwendungsfall
-
-Diese Integration ist besonders nützlich für:
-
-- **Mehrfamilienhäuser**: Überwachung des Energieverbrauchs einzelner Wohnungen
-
----
 
 **Entwickelt mit ❤️ für die Home Assistant Community**
